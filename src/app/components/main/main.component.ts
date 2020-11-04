@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -7,15 +8,18 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  userName= new FormControl();
+  userName= new FormControl('', [Validators.required]);
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onEnter(){
-    console.log(this.userName.value);
+    if(!this.userName.untouched)
+    {
+      this.router.navigate(['twit/',this.userName.value]);
+    }
   }
 
 }

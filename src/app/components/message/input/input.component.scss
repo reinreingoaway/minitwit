@@ -2,8 +2,7 @@
     padding: 0;
     margin: 0;
 }
-.form-container
-{
+.form-container{
     padding-top:2%;
     background-color: #449adb;
     align-items: center;
@@ -13,9 +12,12 @@
     margin: 0 auto; 
     width: 70%;
 }
-.full-width
-{
+.full-width{
     width: 100%;
+    background-color: #ebebeb;
+    margin-bottom: 2%;
+    padding: 1%;
+    border-radius: 10px;
 }
 
 h2 { 
