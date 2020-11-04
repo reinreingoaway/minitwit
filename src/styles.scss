@@ -2,3 +2,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family:"Courier New"}
+button{
+    background-color: #449adb!important;
+}
+
+.logo h1{
+    font-family: 'Courier New'!important;
+    font-size: 90px;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: auto;
+    text-align: center;
+}
+
+.logo{
+    background-color: #449adb;
+    height: 218px;
+    color: white;
+}

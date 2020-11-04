@@ -1,1 +1,19 @@
-<p>input works!</p>
+<div class="input-container">
+    <header class="logo">
+        <div class="greetings">
+            <mat-icon class="arrow_left" (click)="goBack()">keyboard_arrow_left</mat-icon>
+            <h2>Hi Name</h2>
+        </div>
+        
+        <h1>MINItwit</h1>
+    </header>
+
+    <div class="form-container">
+        <form class="input-form">
+            <mat-form-field class="full-width">
+                <textarea  matInput class="input-textarea" placeholder="What is in your head?"></textarea>
+                <button mat-raised-button class="post-button">Post</button>
+            </mat-form-field>
+        </form>
+    </div>
+</div>

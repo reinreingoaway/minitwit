@@ -1,8 +1,10 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { DisplayComponent } from './display/display.component';
 import { InputComponent } from './input/input.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { CommonModule } from '@angular/common';
     DisplayComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     InputComponent,

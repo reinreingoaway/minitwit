@@ -7,7 +7,7 @@ import { MessageComponent } from './components/message/message.component';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     component:MainComponent
   },
   {

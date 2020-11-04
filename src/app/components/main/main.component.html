@@ -1,15 +1,16 @@
 <div class="main-container">
-    <header class="main-header">
+    <header class="logo">
         <h1>MINItwit</h1>
     </header>
 
 
     <form class="main-form-container">
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput>
-          </mat-form-field>
+            <mat-label>Enter your name</mat-label>
+            <input matInput [formControl]="userName"/>
+        </mat-form-field>
+
         <br>
-        <button mat-raised-button class="main-button">Enter</button>
+        <button mat-raised-button [routerLink]="[ '/message']">Enter</button>
     </form>
 </div>
