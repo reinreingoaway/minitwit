@@ -1,7 +1,7 @@
 import { GetmessageService } from './../service/getmessage.service';
 import { MessageDetails } from './../models/messagedetails.model';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-display',
@@ -11,20 +11,23 @@ import { Observable } from 'rxjs';
 export class DisplayComponent implements OnInit {
 
   messages: MessageDetails[];
-  a: Observable<MessageDetails>;
+  currentIndex: number = 1;
 
   constructor(public getMsgService: GetmessageService) {
     this.getMsgService.currentMessages
+      .pipe(map(messages => messages.sort((a,b) => b.date.getTime() - a.date.getTime())))
       .subscribe((messages) => {
         this.messages = messages;
-        this.messages.forEach(msg => {
-          console.log(msg);
-        });
       });
   }
 
   ngOnInit(): void {
-    this.getMsgService.getMessages(1);
+    this.getMsgService.getMessages(this.currentIndex);
+  }
+
+  loadMoreMessage(): void {
+    this.getMsgService.getMessages(++this.currentIndex);
+    console.log(this.currentIndex)
   }
 
 }
