@@ -11,7 +11,6 @@ import { map } from 'rxjs/operators';
 export class DisplayComponent implements OnInit {
 
   messages: MessageDetails[];
-  currentIndex: number = 1;
 
   constructor(public getMsgService: GetmessageService) {
     this.getMsgService.currentMessages
@@ -22,12 +21,11 @@ export class DisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMsgService.getMessages(this.currentIndex);
+    this.getMsgService.getMessages();
   }
 
   loadMoreMessage(): void {
-    this.getMsgService.getMessages(++this.currentIndex);
-    console.log(this.currentIndex)
+    this.getMsgService.getMessages();
   }
 
 }

@@ -1,3 +1,4 @@
+import { MessageDTO } from './../models/messagedto.model';
 import { Router } from '@angular/router';
 import { MessageDetails } from './../models/messagedetails.model';
 import { Injectable } from '@angular/core';
@@ -11,43 +12,41 @@ export class GetmessageService {
   
   messages = new BehaviorSubject<MessageDetails[]>([]);
   currentMessages = this.messages.asObservable();
-  currentSection: number = 1;
+  lastEvaluatedKey: any = null;
 
   constructor(private _http: HttpClient, private route: Router) { }
 
-  getMessages(section: number): void {
-    let response: MessageDetails[] = [];
-    this._http.get<MessageDetails[]>('api url for get', { params: new HttpParams().set("section", section.toString()) })
+  getMessages(): void {
+    this._http.get<MessageDTO>('api url for get', { params: new HttpParams().set("lastEvaluatedKey", this.lastEvaluatedKey) })
       .subscribe(
-        data => this.handleResponse(section, data),
+        data => this.handleResponse(data),
         //() => this.route.navigate(['error']),
-        () => this.handleResponse(section, [
+        () => this.handleResponse(new MessageDTO(null, [
              new MessageDetails('Rein', new Date(Date.now() + (3600*1000*24)), s_msg),
              new MessageDetails('Nikka', new Date(), s_msg),
              new MessageDetails('Pat', new Date(Date.now() + (3600*1000*24*3)), s_msg),
-           ]),
+           ])),
       );
 
 
   }
   
-  handleResponse(section: number, data: MessageDetails[]) {
-    if (section > this.currentSection) {
+  handleResponse(data: MessageDTO) {
+    this.lastEvaluatedKey = data.lastKey;
+    if (this.lastEvaluatedKey) {
       let temporaryMessages = this.messages.getValue();
       
       // let additionalMessages = [
       //   new MessageDetails('Rein2', new Date(Date.now() - (3600*1000*24)), s_msg)
       // ];
-      this.messages.next(temporaryMessages.concat(data));
+      this.messages.next(temporaryMessages.concat(data.messages));
     } else {
-      this.messages.next(data);
+      this.messages.next(data.messages);
       // this.messages.next([
       //   new MessageDetails('Rein', new Date(Date.now() + (3600*1000*24)), s_msg),
       //   new MessageDetails('Nikka', new Date(), s_msg),
       //   new MessageDetails('Pat', new Date(Date.now() + (3600*1000*24*3)), s_msg),
       // ]);
     }
-
-    this.currentSection++;
   }
 }
