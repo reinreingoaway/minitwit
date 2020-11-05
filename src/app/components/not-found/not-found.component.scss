@@ -1,18 +1,9 @@
-.container{
-    margin:0;
-    padding:0;
-    align-content: center;
-    width: 60%;
-    margin:0 auto;
-}
-.error-image{
-    display: flex;
-    align-items: center;
+.container {
+    margin: 0;
+    height: 100vh;
 }
 .error-message{
-    display: block;
     text-align: center;
     color: #449adb;
     font-size: 55px;
-    float: right;
 }

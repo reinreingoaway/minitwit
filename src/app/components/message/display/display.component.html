@@ -1,3 +1,4 @@
 <div class="message-container">
     <message-item *ngFor="let msg of messages" [details]="msg"></message-item>
+    <button mat-button (click)="loadMoreMessage()">Load More...</button>
 </div>

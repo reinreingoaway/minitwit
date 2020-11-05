@@ -11,3 +11,13 @@
 .message-container::-webkit-scrollbar {
     display: none;
 }
+
+button.mat-button {
+    background-color: white !important;
+    margin: auto;
+    width: 100%;
+}
+
+button.mat-button:hover {
+    background-color: black;
+}
