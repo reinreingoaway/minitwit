@@ -1,4 +1,7 @@
+import { GetmessageService } from './../service/getmessage.service';
+import { MessageDetails } from './../models/messagedetails.model';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-display',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor() { }
+  messages: MessageDetails[];
+  a: Observable<MessageDetails>;
+
+  constructor(public getMsgService: GetmessageService) {
+    this.getMsgService.currentMessages
+      .subscribe((messages) => {
+        this.messages = messages;
+        this.messages.forEach(msg => {
+          console.log(msg);
+        });
+      });
+  }
 
   ngOnInit(): void {
+    this.getMsgService.getMessages(1);
   }
 
 }
