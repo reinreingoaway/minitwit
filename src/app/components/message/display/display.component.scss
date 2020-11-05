@@ -1,0 +1,13 @@
+.message-container{
+    width: 80%;
+    padding-top: 20px;
+    margin: auto;
+    height: 50vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.message-container::-webkit-scrollbar {
+    display: none;
+}
