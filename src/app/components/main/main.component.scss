@@ -4,6 +4,24 @@
 }
 
 .main-form-container{
-    margin-top: 20px;
+    margin-top: 100px;
     text-align: center;
+}
+
+.full-width{
+    background-color: #ebebeb;
+    border-radius: 10px;
+    width: 40%;
+    height: 60px;
+    font-size: 20px;
+    color: #449adb;
+    text-align: center;
+    margin: 10px;
+}
+.mat-label{
+    color:#449adb !important;
+    font-size: 20px;
+}
+button{
+    font-size: 20px;
 }

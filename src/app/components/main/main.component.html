@@ -5,11 +5,12 @@
 
 
     <form class="main-form-container">
-        <mat-form-field appearance="fill">
-            <mat-label>Enter your name</mat-label>
-            <input matInput [formControl]="userName"/>
-            <mat-error *ngIf="userName.hasError('required')">
-                Please enter a valid user name
+        <mat-label class="mat-label">What is your name?</mat-label>
+        <br>
+        <mat-form-field class="full-width">
+            <input  matInput class="matInput" [formControl]="userName"/>
+            <mat-error *ngIf="userName.errors?.required">
+                Please enter your name
             </mat-error>
         </mat-form-field>
 

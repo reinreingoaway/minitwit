@@ -11,7 +11,10 @@
     <div class="form-container">
         <form class="input-form">
             <mat-form-field class="full-width">
-                <input  matInput class="input-textarea"  placeholder="What is in your head?"/>
+                <textarea  matInput class="input-textarea" [formControl]="message" placeholder="What is in your head?"></textarea>
+                <mat-error *ngIf="message.errors?.maxlength">
+                    Message must be less than 300 characters.
+                </mat-error>
                 <button mat-raised-button (click)="onPost()" class="post-button">Post</button>
             </mat-form-field>
         </form>

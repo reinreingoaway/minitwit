@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -10,8 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InputComponent implements OnInit {
   userName: string;
-  message= new FormControl();
-
+  message= new FormControl('',[Validators.maxLength(300)]);
   constructor(private location: Location,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -23,7 +22,11 @@ export class InputComponent implements OnInit {
   }
 
   onPost(){
-    console.log("this.message.value");
+    if(!this.message.errors?.maxlength)
+    {
+      console.log(this.message.value);
+    }
+    
   }
 
 }
