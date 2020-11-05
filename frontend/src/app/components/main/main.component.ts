@@ -16,9 +16,7 @@ export class MainComponent implements OnInit {
   }
 
   onEnter(){
-    console.log(this.userName.valueChanges);
-    console.log(this.userName);
-    if(this.userName.valueChanges)
+    if(!this.userName.errors?.required)
     {
       this.router.navigate(['twit/',this.userName.value]);
     }

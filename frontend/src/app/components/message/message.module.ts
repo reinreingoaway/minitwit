@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     MatIconModule,
     DisplayModule,
     HttpClientModule

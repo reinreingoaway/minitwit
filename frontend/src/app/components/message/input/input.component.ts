@@ -2,6 +2,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { MessageDetails } from '../models/messagedetails.model';
 
 @Component({
   selector: 'app-input',
@@ -11,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class InputComponent implements OnInit {
   userName: string;
   message= new FormControl('',[Validators.maxLength(300)]);
+  twit: MessageDetails;
+
   constructor(private location: Location,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -24,7 +27,10 @@ export class InputComponent implements OnInit {
   onPost(){
     if(!this.message.errors?.maxlength)
     {
-      console.log(this.message.value);
+      this.twit = new MessageDetails(this.userName,
+        new Date(),
+        this.message.value)
+      console.log(this.twit);
     }
     
   }
