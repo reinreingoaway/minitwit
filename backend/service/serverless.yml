@@ -1,0 +1,34 @@
+
+service: minitwit-service
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-central-1
+  httpApi:
+    cors: true
+
+
+functions:
+  get_message:
+    handler: messages.get_message
+    role: null
+    events:
+      - httpApi:
+          path: /get_message
+          method: get
+  create_message:
+    handler: messages.create_message
+    role: null
+    events:
+      - httpApi:
+          path: /create_message
+          method: post  
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true

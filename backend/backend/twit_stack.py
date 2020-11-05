@@ -19,7 +19,7 @@ class TwitStack(core.Stack):
             table_name=f"training-minitwit",
             billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
             partition_key=aws_dynamodb.Attribute(
-                name='messae_id',
+                name='message_id',
                 type=aws_dynamodb.AttributeType.STRING
             ),
             sort_key=aws_dynamodb.Attribute(
