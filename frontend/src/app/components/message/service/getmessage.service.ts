@@ -17,7 +17,7 @@ export class GetmessageService {
   constructor(private _http: HttpClient, private route: Router) { }
 
   getMessages(): void {
-    this._http.get<MessageDTO>('api url for get', { params: new HttpParams().set("lastEvaluatedKey", this.lastEvaluatedKey) })
+    this._http.get<MessageDTO>('https://fqzlivja55.execute-api.eu-central-1.amazonaws.com/get_message', { params: new HttpParams().set("lastEvaluatedKey", this.lastEvaluatedKey) })
       .subscribe(
         data => this.handleResponse(data),
         //() => this.route.navigate(['error']),
