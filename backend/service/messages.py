@@ -47,11 +47,13 @@ def get_message(event, context):
 def create_message(event, context):
     event_body = json.loads(event["body"])
     event_body["date"]= datetime.datetime.utcnow()
-
+    print("event_body: ", event_body)
     new_twit = Message(**event_body)
-
+    print("new_twit: ", new_twit)
     try:
+        print("saving... ")
         new_twit.save()
+        print("saved... ")
         response = {
             "statusCode": 201,
             "body": "Successfully created"
