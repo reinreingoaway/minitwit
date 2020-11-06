@@ -1,3 +1,4 @@
+import { SaveMessageService } from './../service/save-message.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
@@ -14,7 +15,9 @@ export class InputComponent implements OnInit {
   message= new FormControl('',[Validators.maxLength(300)]);
   twit: MessageDetails;
 
-  constructor(private location: Location,private route: ActivatedRoute) { }
+  constructor(private location: Location,
+    private route: ActivatedRoute,
+    private service: SaveMessageService) { }
 
   ngOnInit(): void {
     this.userName = this.route.snapshot.paramMap.get('name');
@@ -30,9 +33,8 @@ export class InputComponent implements OnInit {
       this.twit = new MessageDetails(this.userName,
         new Date(),
         this.message.value)
-      console.log(this.twit);
     }
-    
+    this.service.saveMessage(this.twit)
   }
 
 }
