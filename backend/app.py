@@ -6,6 +6,6 @@ from backend.twit_stack import TwitStack
 
 
 app = core.App()
-TwitStack(app, "twit")
+TwitStack(app, "twit-stack")
 
 app.synth()
