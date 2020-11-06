@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageDetails } from './../models/messagedetails.model';
 import { Injectable } from '@angular/core';
+import { GetmessageService } from './getmessage.service';
 
 
 const httpOptions = {
@@ -14,14 +15,13 @@ const httpOptions = {
 })
 export class SaveMessageService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private getSvc: GetmessageService) { }
 
   saveMessage(twit: MessageDetails){
-    return this.http.post<MessageDetails>('https://fqzlivja55.execute-api.eu-central-1.amazonaws.com/create_message', twit)
-    .subscribe({
-      error: error => {
-        console.log(error?.message)
-      }
-    });
+     this.http.post<MessageDetails>('https://fqzlivja55.execute-api.eu-central-1.amazonaws.com/create_message', twit)
+    .subscribe(
+      () => this.getSvc.getMessages(),
+      () => this.getSvc.getMessages()
+    );
   }
 }
