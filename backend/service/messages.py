@@ -12,35 +12,35 @@ class Message(Model):
         region = "eu-central-1"
 
     message_id = UnicodeAttribute(hash_key=True)
-    date = UTCDateTimeAttribute(range_key=True)
-    name = UnicodeAttribute(null=False)
-    content = UnicodeAttribute(null=False)
+    date = UnicodeAttribute(range_key=True)
+    name = UnicodeAttribute()
+    content = UnicodeAttribute()
 
 
 def get_message(event, context):
-    print("event_body", event["body"])
-    event_body = json.loads(event["body"])
+    print("event", event)
+    event_body = json.loads(event["queryStringParameters"])
     response = {}
 
-    # try:
-    messages = Message.query("999")#limit=5, last_evaluated_key=event_body["lastEvaluatedKey"])
-    message_serializable = []
-    print("messages", messages)
-    for message in messages:
-        message_serializable.append({
-            "date": message.date,
-            "name": message.name,
-            "content": message.content,
-        })
+    try:
+        messages = Message.query(limit=1, last_evaluated_key=event_body["lastEvaluatedKey"])
+        message_serializable = []
+        for message in messages:
+            print("name", message.name)
+            message_serializable.append({
+                "date": message.date,
+                "name": message.name,
+                "content": message.content,
+            })
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps({ "messages": message_serializable })
-    }
-    # except:
-    #     response = {
-    #         "statusCode": 500,
-    #     }
+        response = {
+            "statusCode": 200,
+            "body": json.dumps({ "messages": message_serializable, "lastEvaluatedKey": messages.last_evaluated_key })
+        }
+    except:
+        response = {
+            "statusCode": 500,
+        }
 
     return response
 
