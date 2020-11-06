@@ -27,7 +27,7 @@ class TwitStack(core.Stack):
                 type=aws_dynamodb.AttributeType.STRING
             )
         )
-        self.table.grant_read_write_data(self.role)
+        self.table.grant_full_access(self.role)
         
         # self.bucket = aws_s3.Bucket(self,
         #     access_control=aws_s3.BucketAccessControl.PUBLIC_READ,
