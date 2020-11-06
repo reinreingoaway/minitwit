@@ -49,7 +49,6 @@ def create_message(event, context):
     event_body["date"]= datetime.datetime.utcnow()
     print("event_body: ", event_body)
     new_twit = Message(**event_body)
-    print("new_twit: ", new_twit)
     try:
         print("saving... ")
         new_twit.save()
@@ -65,3 +64,4 @@ def create_message(event, context):
         }
     
     return response
+    
