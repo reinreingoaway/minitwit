@@ -45,16 +45,21 @@ def get_message(event, context):
 # get_message(json.dumps({ "body": { "lastEvaluatedKey": "aa"}}), {})
 
 def create_message(event, context):
-    event_body json.loads(event["body"])
-    
-    print(event_body)
+    event_body = json.loads(event["body"])
+    print("event_body: ",event_body)
     new_twit = Message(**event_body)
+    print("new_twit: ", new_twit)
 
-    if(new_twit.save())
-    {
-        return{
+    try:
+        new_twit.save()
+        response = {
             "statusCode": 201,
             "body": "Successfully created"
         }
-    }
+    except :        
+        response = {
+            "statusCode": 500,
+            "body": "Twit was not successfully created"
+        }
     
+    return response
