@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from pynamodb.models import Model
 from pynamodb.attributes import (
@@ -10,10 +11,10 @@ class Message(Model):
         table_name = "training-minitwit"
         region = "eu-central-1"
 
-        message_id = UnicodeAttribute(hash_key=True)
-        date = UTCDateTimeAttribute(range_key=True)
-        name = UnicodeAttribute(null=False)
-        content = UnicodeAttribute(null=False)
+    message_id = UnicodeAttribute(hash_key=True)
+    date = UTCDateTimeAttribute(range_key=True)
+    name = UnicodeAttribute(null=False)
+    content = UnicodeAttribute(null=False)
 
 
 def get_message(event, context):
@@ -46,9 +47,9 @@ def get_message(event, context):
 
 def create_message(event, context):
     event_body = json.loads(event["body"])
-    print("event_body: ",event_body)
+    event_body["date"]= datetime.datetime.utcnow()
+
     new_twit = Message(**event_body)
-    print("new_twit: ", new_twit)
 
     try:
         new_twit.save()
