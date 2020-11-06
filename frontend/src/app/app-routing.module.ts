@@ -15,7 +15,7 @@ const routes: Routes = [
     component:MessageComponent
   },
   {
-    path: '**',
+    path: 'error',
     component:NotFoundComponent
   },
 ];
