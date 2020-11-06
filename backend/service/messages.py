@@ -1,6 +1,5 @@
 import json
-import datetime
-from pynamodb.exceptions import PutError
+import random
 
 from pynamodb.models import Model
 from pynamodb.attributes import (
@@ -46,19 +45,21 @@ def get_message(event, context):
     return response
 
 def create_message(event, context):
+    message_id = str(random.randrange(99999))
     event_body = json.loads(event["body"])
+    event_body["message_id"] = message_id
     new_twit = Message(**event_body)
+    
     try:
         new_twit.save()
         response = {
             "statusCode": 201,
             "body": "Successfully created"
         }
-    except:   
+    except :        
         response = {
             "statusCode": 500,
             "body": "Twit was not successfully created"
         }
     
     return response
-    
