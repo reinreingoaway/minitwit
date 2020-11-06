@@ -22,7 +22,8 @@ setuptools.setup(
         "aws-cdk.core==1.66.0",
         "aws_cdk.aws_dynamodb==1.66.0",
         "aws_cdk.aws_iam==1.66.0",
-        "aws_cdk.aws_s3==1.66.0"
+        "aws_cdk.aws_s3==1.66.0",
+        "aws_cdk.aws_s3_deployment==1.66.0"
     ],
 
     python_requires=">=3.6",

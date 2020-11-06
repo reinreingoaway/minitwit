@@ -1,4 +1,4 @@
-from aws_cdk import core, aws_dynamodb, aws_iam, aws_s3
+from aws_cdk import core, aws_dynamodb, aws_iam, aws_s3, aws_s3_deployment
 
 
 class TwitStack(core.Stack):
@@ -11,7 +11,7 @@ class TwitStack(core.Stack):
             id="training-twit-role",
             assumed_by=aws_iam.ServicePrincipal('lambda.amazonaws.com'),
         )
-        self.role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name('AWSLambdaBasicExecutionRole'))
+        self.role.add_managed_policy(aws_iam.ManagedPolicy.from_aws_managed_policy_name('service-role/AWSLambdaBasicExecutionRole'))
 
         self.table = aws_dynamodb.Table(
             self,
@@ -29,19 +29,15 @@ class TwitStack(core.Stack):
         )
         self.table.grant_read_write_data(self.role)
         
-        self.bucket = aws_s3.Bucket(self,
-            access_control=aws_s3.BucketAccessControl.PRIVATE,
-            id=f"MiniTwitBucket",
-            bucket_name=f"training-minitwit-bucket",
-            block_public_access=aws_s3.BlockPublicAccess(block_public_acls=True,
-                    block_public_policy=True,
-                    ignore_public_acls=True,
-                    restrict_public_buckets=True),
-            cors=[
-                aws_s3.CorsRule(allowed_methods=[
-                    aws_s3.HttpMethods.GET, aws_s3.HttpMethods.PUT, aws_s3.HttpMethods.HEAD,
-                    aws_s3.HttpMethods.DELETE
-                ],
-                    allowed_headers=["*"],
-                    allowed_origins=[])
-            ])
+        # self.bucket = aws_s3.Bucket(self,
+        #     access_control=aws_s3.BucketAccessControl.PUBLIC_READ,
+        #     id=f"MiniTwitBucket",
+        #     bucket_name=f"minitwit",
+        #     website_index_document= f"index.html")
+        
+        # self.deployment = aws_s3_deployment.BucketDeployment(
+        #     self,
+        #     id=f"MiniTwitDeployment",
+        #     sources=[aws_s3_deployment.Source.asset("../frontend/src")],
+        #     destination_bucket=self.bucket)
+

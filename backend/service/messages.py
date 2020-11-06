@@ -30,4 +30,16 @@ def get_message(event, context):
     return response
 
 def create_message(event, context):
-    pass
+    event_body json.loads(event["body"])
+    
+    print(event_body)
+    new_twit = Message(**event_body)
+
+    if(new_twit.save())
+    {
+        return{
+            "statusCode": 201,
+            "body": "Successfully created"
+        }
+    }
+    
