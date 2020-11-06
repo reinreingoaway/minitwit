@@ -32,7 +32,8 @@ export class GetmessageService {
   }
   
   handleResponse(data: MessageDTO) {
-    this.lastEvaluatedKey = data.lastKey;
+    console.log(data)
+    this.lastEvaluatedKey = data.lastEvaluatedKey;
     if (this.lastEvaluatedKey) {
       let temporaryMessages = this.messages.getValue();
       

@@ -14,7 +14,7 @@ export class DisplayComponent implements OnInit {
 
   constructor(public getMsgService: GetmessageService) {
     this.getMsgService.currentMessages
-      .pipe(map(messages => messages.sort((a,b) => b.date.getTime() - a.date.getTime())))
+      .pipe(map(messages => messages.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime())))
       .subscribe((messages) => {
         this.messages = messages;
       });

@@ -18,7 +18,7 @@ export class MessageItemComponent implements OnInit {
   constructor(private dateFormatter: DatePipe) { }
 
   ngOnInit(): void {
-    this.formattedDate = this.dateFormatter.transform(this.details?.date, 'MMM dd yyyy');
+    this.formattedDate = this.dateFormatter.transform(this.details?.date, 'MMM dd yyyy | hh:mm:ss');
   }
 
 }
