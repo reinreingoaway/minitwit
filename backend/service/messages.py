@@ -18,12 +18,11 @@ class Message(Model):
 
 
 def get_message(event, context):
-    print("event", event)
-    event_body = json.loads(event["queryStringParameters"])
     response = {}
 
     try:
-        messages = Message.query(limit=1, last_evaluated_key=event_body["lastEvaluatedKey"])
+        print("here")
+        messages = Message.scan()
         message_serializable = []
         for message in messages:
             print("name", message.name)
@@ -38,8 +37,10 @@ def get_message(event, context):
             "body": json.dumps({ "messages": message_serializable, "lastEvaluatedKey": messages.last_evaluated_key })
         }
     except:
+        print("exception")
         response = {
             "statusCode": 500,
+            "message": "ERROR"
         }
 
     return response
