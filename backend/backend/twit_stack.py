@@ -29,15 +29,16 @@ class TwitStack(core.Stack):
         )
         self.table.grant_full_access(self.role)
         
-        # self.bucket = aws_s3.Bucket(self,
-        #     access_control=aws_s3.BucketAccessControl.PUBLIC_READ,
-        #     id=f"MiniTwitBucket",
-        #     bucket_name=f"minitwit",
-        #     website_index_document= f"index.html")
+        self.bucket = aws_s3.Bucket(self,
+            access_control=aws_s3.BucketAccessControl.PUBLIC_READ,
+            id=f"MiniTwitBucket",
+            bucket_name=f"minitwit",
+            website_index_document= f"index.html",
+            public_read_access=True)
         
-        # self.deployment = aws_s3_deployment.BucketDeployment(
-        #     self,
-        #     id=f"MiniTwitDeployment",
-        #     sources=[aws_s3_deployment.Source.asset("../frontend/src")],
-        #     destination_bucket=self.bucket)
+        self.deployment = aws_s3_deployment.BucketDeployment(
+            self,
+            id=f"MiniTwitDeployment",
+            sources=[aws_s3_deployment.Source.asset("../frontend/dist")],
+            destination_bucket=self.bucket)
 
