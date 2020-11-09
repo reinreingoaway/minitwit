@@ -18,10 +18,10 @@ export class SaveMessageService {
   constructor(private http: HttpClient, private getSvc: GetmessageService) { }
 
   saveMessage(twit: MessageDetails){
-     this.http.post<MessageDetails>('https://fqzlivja55.execute-api.eu-central-1.amazonaws.com/create_message', twit)
+     this.http.post<MessageDetails>('https://e5fgcbx4m9.execute-api.eu-central-1.amazonaws.com/create_message', twit)
     .subscribe(
-      () => this.getSvc.getMessages(),
-      () => this.getSvc.getMessages()
+      () => this.getSvc.getMessages(true),
+      () => this.getSvc.getMessages(true)
     );
   }
 }

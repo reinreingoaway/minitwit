@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'error',
     component:NotFoundComponent
   },
+  {
+    path: '**',
+    redirectTo: 'error'
+  }
 ];
 
 @NgModule({

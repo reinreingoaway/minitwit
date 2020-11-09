@@ -1,5 +1,6 @@
 import json
 import random
+import boto3
 
 from pynamodb.models import Model
 from pynamodb.attributes import (
@@ -18,26 +19,46 @@ class Message(Model):
 
 
 def get_message(event, context):
-    response = {}
+    print("event", event)
+    dynamodb = boto3.resource('dynamodb')
+    print("dynamodb", dynamodb)
+    table = dynamodb.Table('training-minitwit')
 
+    print("table", table)
+    response = {}
+    print(event["queryStringParameters"])
     try:
-        print("here")
-        messages = Message.scan()
+        if "message_id" in event["queryStringParameters"]:
+            lastEvaluatedKey = {
+                "message_id": event["queryStringParameters"]["message_id"],
+                "date": event["queryStringParameters"]["date"]
+            }
+            messages = table.scan(Limit=3, ExclusiveStartKey=lastEvaluatedKey)
+        else:
+            messages = table.scan(Limit=3)
+        print(messages)
         message_serializable = []
-        for message in messages:
-            print("name", message.name)
+        for message in messages["Items"]:
             message_serializable.append({
-                "date": message.date,
-                "name": message.name,
-                "content": message.content,
+                "date": message["date"],
+                "name": message["name"],
+                "content": message["content"],
             })
+        
+        body = {
+            "messages": message_serializable
+        }
+
+        if "LastEvaluatedKey" in messages:
+            body["lastEvaluatedKey"] = messages["LastEvaluatedKey"]
+        else:
+            body["lastEvaluatedKey"] = None
 
         response = {
             "statusCode": 200,
-            "body": json.dumps({ "messages": message_serializable, "lastEvaluatedKey": messages.last_evaluated_key })
+            "body": json.dumps(body)
         }
     except:
-        print("exception")
         response = {
             "statusCode": 500,
             "message": "ERROR"
