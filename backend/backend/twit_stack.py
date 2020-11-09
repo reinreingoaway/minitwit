@@ -39,6 +39,6 @@ class TwitStack(core.Stack):
         self.deployment = aws_s3_deployment.BucketDeployment(
             self,
             id=f"MiniTwitDeployment",
-            sources=[aws_s3_deployment.Source.asset("../frontend/dist")],
+            sources=[aws_s3_deployment.Source.asset("../frontend/dist/minitwit2")],
             destination_bucket=self.bucket)
 

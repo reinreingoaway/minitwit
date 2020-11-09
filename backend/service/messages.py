@@ -28,7 +28,7 @@ def get_message(event, context):
     response = {}
     print(event["queryStringParameters"])
     try:
-        if "message_id" in event["queryStringParameters"]:
+        if "message_id" in event["queryStringParameters"] and event["queryStringParameters"]["message_id"] != "undefined":
             lastEvaluatedKey = {
                 "message_id": event["queryStringParameters"]["message_id"],
                 "date": event["queryStringParameters"]["date"]
@@ -67,7 +67,7 @@ def get_message(event, context):
     return response
 
 def create_message(event, context):
-    message_id = str(random.randrange(99999))
+    message_id = "1"
     event_body = json.loads(event["body"])
     event_body["message_id"] = message_id
     new_twit = Message(**event_body)

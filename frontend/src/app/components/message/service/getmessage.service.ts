@@ -18,7 +18,7 @@ export class GetmessageService {
 
   getMessages(hasLEK: boolean = false): void {
     if (hasLEK) this.lastEvaluatedKey = null
-    this._http.get<MessageDTO>('https://e5fgcbx4m9.execute-api.eu-central-1.amazonaws.com/get_message', { params: new HttpParams().set("message_id", this.lastEvaluatedKey?.message_id).append("date", this.lastEvaluatedKey?.date) })
+    this._http.get<MessageDTO>('https://rznow55a72.execute-api.eu-central-1.amazonaws.com/get_message', { params: new HttpParams().set("message_id", this.lastEvaluatedKey?.message_id).append("date", this.lastEvaluatedKey?.date) })
       .subscribe(
         data => this.handleResponse(data),
         () => this.route.navigate(['error']),
